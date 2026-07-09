@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI工具链接检索"
+  short_description: "核验工具链接并生成口播可用事实交接"
+  default_prompt: "Use $ai-tool-link-researcher to research this AI tool link and return TOOL_RESEARCH_HANDOFF_V1."

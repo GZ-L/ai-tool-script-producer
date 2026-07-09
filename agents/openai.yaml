@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI工具口播脚本"
+  short_description: "把AI工具链接整理成短视频口播脚本"
+  default_prompt: "Use $ai-tool-script-producer to turn this AI tool link into a short-form口播稿."
