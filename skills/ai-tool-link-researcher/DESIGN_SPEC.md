@@ -13,6 +13,7 @@ ai-tool-link-researcher -> TOOL_RESEARCH_HANDOFF_V1 -> ai-tool-script-producer
 It is modeled after the useful parts of `ai-news-radar`'s ability tree:
 
 - source classification before action;
+- research intent classification before source work;
 - context pass before conclusions;
 - depth control for simple vs complex sources;
 - primary-source preference;
@@ -27,7 +28,7 @@ For package-level modification rules, read `../../docs/SKILL_MAINTENANCE_PROTOCO
 
 - `SKILL.md`: trigger, routing, and boundary.
 - `CALLING_SPEC.md`: top runtime contract.
-- `references/00-source-routing.md`: source type and research depth.
+- `references/00-source-routing.md`: research intent, source type, and research depth.
 - `references/01-evidence-extraction.md`: fact fields and achievement choice.
 - `references/02-claim-risk-gate.md`: claim confidence and forbidden claims.
 - `references/03-handoff-contract.md`: stable output contract.
@@ -39,7 +40,7 @@ For package-level modification rules, read `../../docs/SKILL_MAINTENANCE_PROTOCO
 |---|---|
 | Trigger wording or Skill boundary | `SKILL.md` |
 | Required execution order | `CALLING_SPEC.md` |
-| Source categories or depth rules | `references/00-source-routing.md` |
+| Research intent, source categories, or depth rules | `references/00-source-routing.md` |
 | Evidence fields | `references/01-evidence-extraction.md` |
 | Claim safety rules | `references/02-claim-risk-gate.md` |
 | Downstream interface | `references/03-handoff-contract.md` |
@@ -58,6 +59,7 @@ If the handoff shape changes, update:
 ## Audit Checklist
 
 - The Skill returns research handoff only, not final口播稿.
+- `input.research_intent` is set before opening sources.
 - `ai-news-radar` is used only for AI News Radar / 伯乐Skill / Scout Skill targets.
 - Every dynamic claim is verified, downgraded, or omitted.
 - Secret, private feed, and account-bound source rules remain strict.

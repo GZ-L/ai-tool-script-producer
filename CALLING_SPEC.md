@@ -8,10 +8,11 @@ For ordinary script generation:
 
 1. `CALLING_SPEC.md`
 2. `docs/AGENT_CALLING_PROTOCOL.md`
-3. `ai-tool-link-researcher` for upstream link/tool research when no handoff is supplied
-4. `references/01-intake-and-research.md`
-5. `references/02-script-structure.md`
-6. `references/03-output-and-quality.md`
+3. `references/00-intent-and-routing.md`
+4. `ai-tool-link-researcher` for upstream link/tool research when no handoff is supplied
+5. `references/01-intake-and-research.md`
+6. `references/02-script-structure.md`
+7. `references/03-output-and-quality.md`
 
 `DESIGN_SPEC.md` is maintenance-only. Do not read it during normal generation.
 `docs/SKILL_MAINTENANCE_PROTOCOL.md` is maintenance-only. Do not read it during normal generation.
@@ -23,10 +24,19 @@ Research authority and writing authority are separate:
 
 ## Required Sequence
 
-1. **Confirm fit**
-   - Use this Skill only for scripts about tools, URLs, GitHub repos, apps, extensions, SaaS products, websites, or open-source projects.
+1. **Intent gate**
+   - Read `references/00-intent-and-routing.md`.
+   - Set internal variables: `user_intent`, `input_type`, `output_mode`, `research_required`, and `handoff_required`.
+   - Use observable cues only: requested deliverable, supplied URL/tool name/handoff/file path, and explicit wording.
+   - Do not start research or draft until the intent gate is complete.
 
-2. **Resolve research input**
+2. **Confirm fit**
+   - Use this Skill only for scripts about tools, URLs, GitHub repos, apps, extensions, SaaS products, websites, or open-source projects.
+   - If `user_intent` is `maintenance_or_audit`, stop the script-generation path and follow `docs/SKILL_MAINTENANCE_PROTOCOL.md`.
+   - If `user_intent` is `research_only`, route to `ai-tool-link-researcher` and return `TOOL_RESEARCH_HANDOFF_V1`; do not draft a口播稿.
+   - If `user_intent` is `out_of_scope`, do not force this Skill. Explain the mismatch or route to the appropriate Skill.
+
+3. **Resolve research input**
    - If the user already supplied `TOOL_RESEARCH_HANDOFF_V1`, use it as the evidence source.
    - If the user supplied a URL/tool name and no handoff, use `ai-tool-link-researcher` first and obtain a completed `TOOL_RESEARCH_HANDOFF_V1`.
    - Runtime Skill resolution order: installed `~/.codex/skills/ai-tool-link-researcher`, then packaged `skills/ai-tool-link-researcher`, then fallback checklist.
@@ -34,18 +44,18 @@ Research authority and writing authority are separate:
    - Do not read `ai-tool-link-researcher` internals while drafting if a valid handoff is already present.
    - No completed handoff means no final script, except the explicit fallback path above.
 
-3. **Prepare script material**
+4. **Prepare script material**
    - Read `references/01-intake-and-research.md`.
    - Extract from the handoff or fallback notes: tool name, purpose, audience, pain point, achievement, access path, first-use steps, free/open-source status if verified, and risk notes.
    - Check `handoff_status`; continue only when it is `ready` or when `partial` still has enough verified facts and the missing fields are marked.
    - Do not draft the final口播稿 before this pass.
 
-4. **Select achievement sentence**
+5. **Select achievement sentence**
    - Pick exactly one verified achievement or positioning sentence to place immediately after the tool name.
    - Use verified stars, forks, official backing, release milestone, store rating, public adoption, funding, case study, or integration.
    - If nothing is verified, use a positioning fallback and mark it in `事实依据/待核验`.
 
-5. **Draft script**
+6. **Draft script**
    - Read `references/02-script-structure.md`.
    - Use this order:
 
@@ -56,9 +66,10 @@ one-core-result project sentence -> pain scene -> tool name -> achievement sente
    - First sentence must follow: `这是一个能帮你【一个核心结果】的【开源项目/工具/网站】。`
    - First sentence must not include a second capability, mechanism, comma clause, advanced positioning, `并且`, `以及`, or `同时`.
 
-6. **Package output**
+7. **Package output**
    - Read `references/03-output-and-quality.md`.
-   - If the user asks for a script, use compact output:
+   - Package according to `output_mode`.
+   - If `output_mode` is `compact_script`, use:
 
 ```text
 【口播稿】

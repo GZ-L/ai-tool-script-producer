@@ -29,12 +29,13 @@ Read `DESIGN_SPEC.md` only when modifying, auditing, or extending this Skill.
 
 ## Workflow
 
-1. Classify the user input: GitHub repo, official website, docs page, store listing, generated feed project, pasted description, screenshot, or tool name only.
-2. Choose quick, standard, or deep research depth.
-3. Verify facts from official or primary sources first.
-4. Extract purpose, audience, pain point, achievement, core capabilities, access path, first-use steps, and risk notes.
-5. Pass every dynamic or promotional claim through the claim-risk gate.
-6. Return one stable handoff block for downstream script generation.
+1. Identify the research intent: script support, research-only handoff, source evaluation, or maintenance context.
+2. Classify the user input: GitHub repo, official website, docs page, store listing, generated feed project, pasted description, screenshot, or tool name only.
+3. Choose quick, standard, or deep research depth.
+4. Verify facts from official or primary sources first.
+5. Extract purpose, audience, pain point, achievement, core capabilities, access path, first-use steps, and risk notes.
+6. Pass every dynamic or promotional claim through the claim-risk gate.
+7. Return one stable handoff block for downstream script generation or research-only use.
 
 ## Non-Negotiables
 
@@ -42,6 +43,7 @@ Read `DESIGN_SPEC.md` only when modifying, auditing, or extending this Skill.
 - Do not expose secrets, cookies, private OPML, private inboxes, tokens, `.env` values, or private newsletter contents.
 - Do not turn a GitHub open-source repo into a "free hosted service" claim unless the hosted path is verified.
 - Do not write the final口播稿. Output facts and handoff only.
+- Always set `input.research_intent` to explain why the research was performed.
 - Always set `handoff_status` to `ready`, `partial`, or `blocked`.
 
 ## Validation

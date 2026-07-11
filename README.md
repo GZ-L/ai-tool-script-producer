@@ -29,11 +29,13 @@
 - 用户给 GitHub 仓库，要求提炼用途、战绩、使用路径、适合人群。
 - 用户给官网、文档页、插件商店页，要求写工具种草脚本。
 - 用户要求固定结构：项目一句话定位、痛点、工具名、战绩、三点能力、使用路径、升维定位、收藏人群。
+- 用户要求审查、维护、安装、验证或修改本 Skill 包的调用协议和文档。
 
 不适合：
 
 - 非工具类泛文案、情绪文案、品牌广告语。
 - 原始视频转写或音频拆解。
+- 与本 Skill 包无关的通用 Skill 开发。
 - 未经核验的“免费、无限、无需 API Key、全网爆火”等宣传性断言。
 - 需要复制第三方源码、私有内容、账号数据或受限素材的任务。
 
@@ -41,6 +43,7 @@
 
 这个 Skill 包可以：
 
+- 先识别用户意图：写口播、只做检索、已有 handoff 成稿、完整包、Skill 维护，分别走不同路径。
 - 先通过 `ai-tool-link-researcher` 对链接做来源分类、事实核验和 claim safety 判断。
 - 用 `TOOL_RESEARCH_HANDOFF_V1` 把事实交给 `ai-tool-script-producer`，避免边查边写导致事实和文案混乱。
 - 通过 `handoff_status`、`confidence`、`blocking_gaps` 判断是否能写稿，减少 Agent 主观判断。
@@ -107,10 +110,12 @@ https://github.com/LearnPrompt/ai-news-radar
 
 内部流程：
 
-1. `ai-tool-script-producer` 判断用户要的是口播稿。
-2. 如果没有 `TOOL_RESEARCH_HANDOFF_V1`，先调用 `ai-tool-link-researcher`。
-3. `ai-tool-link-researcher` 搜索并核验事实，输出 `TOOL_RESEARCH_HANDOFF_V1`。
-4. `ai-tool-script-producer` 读取交接块，生成最终口播稿。
+1. `ai-tool-script-producer` 先识别 `user_intent`、`input_type`、`output_mode`。
+2. 如果是 Skill 修改/审查，进入维护协议，不走成稿流程。
+3. 如果是只要事实核验，调用 `ai-tool-link-researcher` 并返回 handoff。
+4. 如果是口播稿或完整包，且没有 `TOOL_RESEARCH_HANDOFF_V1`，先调用 `ai-tool-link-researcher`。
+5. `ai-tool-link-researcher` 搜索并核验事实，输出 `TOOL_RESEARCH_HANDOFF_V1`。
+6. `ai-tool-script-producer` 读取交接块，生成最终口播稿或完整包。
 
 更详细使用说明见 [docs/USAGE.md](docs/USAGE.md)。
 
@@ -153,6 +158,7 @@ https://github.com/LearnPrompt/ai-news-radar
 │   ├── AGENT_CALLING_PROTOCOL.md
 │   └── SKILL_MAINTENANCE_PROTOCOL.md
 ├── references/
+│   ├── 00-intent-and-routing.md
 │   ├── 01-intake-and-research.md
 │   ├── 02-script-structure.md
 │   └── 03-output-and-quality.md

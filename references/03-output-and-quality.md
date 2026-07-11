@@ -4,12 +4,14 @@ Use this file before delivering the final script.
 
 ## Default Output Sections
 
-For a script-only request, return:
+Choose sections from `output_mode` set in `references/00-intent-and-routing.md`.
+
+For `compact_script`, return:
 
 1. `口播稿`: one complete 30-45 second version.
 2. `事实依据/待核验`: only key verified facts and uncertainties.
 
-For a full package request, return:
+For `full_package`, return:
 
 1. `标题候选`: 3-5 options.
 2. `口播稿`: one complete 30-45 second version.
@@ -17,6 +19,12 @@ For a full package request, return:
 4. `画面/字幕建议`: what to show on screen.
 5. `下载和使用步骤`: factual access path.
 6. `事实依据/待核验`: what was verified and what is uncertain.
+
+For `research_handoff`, return only `TOOL_RESEARCH_HANDOFF_V1` and one short limitation note if needed. Do not add a口播稿.
+
+For `maintenance_report`, return concrete change results, files changed, validation commands, sync/install status, and any remaining risk. Do not add content-generation analysis.
+
+For `blocked`, state the missing target, invalid handoff, or blocking gap. Ask only for the minimum missing input required to continue.
 
 Keep the final answer practical. Do not bury the actual口播稿 under long analysis.
 

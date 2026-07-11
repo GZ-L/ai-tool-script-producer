@@ -13,6 +13,7 @@ Map it like this:
 | Script Need | Handoff Field |
 |---|---|
 | Readiness | `handoff_status` |
+| Research intent | `input.research_intent` |
 | Tool name | `identity.tool_name` |
 | Type | `identity.type` |
 | First sentence result | `script_material.first_sentence_core_result` or `verified_facts.one_core_result` |
@@ -27,6 +28,8 @@ Map it like this:
 | Confidence | `confidence` |
 
 Use `claim_safety.do_not_claim` as a hard blocklist.
+
+`input.research_intent` is advisory. It explains why the researcher was called, but it does not override the producer's own `user_intent` from `references/00-intent-and-routing.md`.
 
 ## Handoff Readiness
 

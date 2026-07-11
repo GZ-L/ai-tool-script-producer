@@ -49,6 +49,15 @@ PASSED: 0 error(s), 0 warning(s)
 
 模板残留扫描应无输出。
 
+如果在本机发布工作目录 `ai-tool-script-producer-skill` 运行 `validate_skill.py .`，可能出现目录名与 frontmatter name 不一致的警告；安装目录和 GitHub 克隆目录应使用 `ai-tool-script-producer`，与 Skill 名一致。
+
+## 本轮新增检查点
+
+- 主 Skill 必须先经过 `references/00-intent-and-routing.md` 的意图门。
+- Agent 协议必须包含 `Intent Gate -> Source Gate -> Handoff Gate -> Material Gate -> Draft Gate -> Output Gate -> Validation Gate`。
+- `TOOL_RESEARCH_HANDOFF_V1` 必须支持 `input.research_intent`，且旧字段不删除。
+- 只做研究的请求不得生成口播稿，维护请求不得进入内容生成路径。
+
 ## 验证边界
 
 - 结构验证确认 Skill frontmatter、命名、基础结构可用。

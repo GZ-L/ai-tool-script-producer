@@ -16,13 +16,14 @@ It is for AI tools, GitHub repos, websites, SaaS products, browser extensions, o
 
 It is not for generic copywriting, raw transcription, broad calendars, or unverifiable claims.
 
-Research is coordinated through a separate sibling Skill:
+Runtime is coordinated through an intent gate and a separate sibling research Skill:
 
 ```text
+Intent Gate ->
 ai-tool-link-researcher -> TOOL_RESEARCH_HANDOFF_V1 -> ai-tool-script-producer
 ```
 
-The researcher owns facts and claim safety. This Skill owns spoken structure and final output.
+This Skill owns intent recognition, spoken structure, and final output. The researcher owns facts and claim safety.
 
 ## Runtime Files
 
@@ -31,6 +32,7 @@ The researcher owns facts and claim safety. This Skill owns spoken structure and
 - `docs/AGENT_CALLING_PROTOCOL.md`: Agent-facing runtime routing and Skill cooperation.
 - `docs/SKILL_MAINTENANCE_PROTOCOL.md`: future modification protocol and compatibility contract.
 - `skills/ai-tool-link-researcher/`: packaged upstream research Skill. Install it as a separate Skill for normal use.
+- `references/00-intent-and-routing.md`: user intent, input type, output mode, and runtime path.
 - `references/01-intake-and-research.md`: handoff mapping and fallback research only.
 - `references/02-script-structure.md`: drafting structure.
 - `references/03-output-and-quality.md`: final output gate.
@@ -43,6 +45,7 @@ The researcher owns facts and claim safety. This Skill owns spoken structure and
 |---|---|
 | Trigger wording or resource routing | `SKILL.md` |
 | Required execution order or claim discipline | `CALLING_SPEC.md` |
+| User intent, input recognition, or output mode | `references/00-intent-and-routing.md`, `docs/AGENT_CALLING_PROTOCOL.md` |
 | Generic link research protocol | `skills/ai-tool-link-researcher/` |
 | Handoff-to-script mapping | `references/01-intake-and-research.md` |
 | Script structure and first-sentence examples | `references/02-script-structure.md` |
@@ -53,6 +56,7 @@ The researcher owns facts and claim safety. This Skill owns spoken structure and
 ## Audit Checklist
 
 - `CALLING_SPEC.md` remains the top runtime authority.
+- `00` classifies user intent before research or drafting.
 - Research handoff or fallback `01` runs before drafting.
 - No completed handoff means no final script, unless fallback research is explicitly marked.
 - `02` starts with one core result, not a bloated first sentence.

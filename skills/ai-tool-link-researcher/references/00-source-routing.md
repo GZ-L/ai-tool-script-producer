@@ -2,6 +2,17 @@
 
 Use this file before opening sources.
 
+## Research Intent
+
+Set one value and carry it into `TOOL_RESEARCH_HANDOFF_V1` as `input.research_intent`.
+
+| research_intent | Use When | Output Boundary |
+|---|---|---|
+| `script_support` | Another Skill needs facts for口播稿 or full package | Return script-ready facts, not the script |
+| `research_only` | User asks for核验, 事实整理, or handoff only | Return the handoff and concise limitation note |
+| `source_evaluation` | User asks whether a claim/source is reliable or current | Emphasize evidence strength and claim risk |
+| `maintenance_context` | Research supports Skill docs, examples, or validation | Preserve source facts; do not add writing advice |
+
 ## Research Depth
 
 | Depth | Use When | Work Required |

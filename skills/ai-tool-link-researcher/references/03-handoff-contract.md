@@ -11,6 +11,7 @@ TOOL_RESEARCH_HANDOFF_V1
 handoff_status: ready|partial|blocked
 input:
   original: ...
+  research_intent: script_support|research_only|source_evaluation|maintenance_context
   source_type: ...
   research_depth: quick|standard|deep
 
@@ -87,6 +88,7 @@ END_TOOL_RESEARCH_HANDOFF_V1
 ## Rules
 
 - Keep `achievement_sentence` ready to place immediately after `这个工具叫【工具名】。`
+- Keep `input.research_intent` accurate; it tells downstream Agents why the research was performed.
 - Keep `first_sentence_core_result` to one result only.
 - Put unavailable paths as `unknown - not verified`, not blank.
 - Put unsafe claims in `do_not_claim` so the downstream script can avoid them.
