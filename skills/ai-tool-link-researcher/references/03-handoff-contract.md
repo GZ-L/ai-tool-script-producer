@@ -8,6 +8,7 @@ Return exactly one handoff block:
 
 ```text
 TOOL_RESEARCH_HANDOFF_V1
+handoff_status: ready|partial|blocked
 input:
   original: ...
   source_type: ...
@@ -63,6 +64,15 @@ claim_safety:
   do_not_claim:
     - ...
 
+confidence:
+  identity: high|medium|low
+  achievement: high|medium|low
+  access_path: high|medium|low
+  claim_safety: high|medium|low
+
+blocking_gaps:
+  - ...
+
 sources:
   - label: ...
     url: ...
@@ -81,6 +91,10 @@ END_TOOL_RESEARCH_HANDOFF_V1
 - Put unavailable paths as `unknown - not verified`, not blank.
 - Put unsafe claims in `do_not_claim` so the downstream script can avoid them.
 - Add `research_limits` when pages could not be accessed, facts were stale, or evidence was weak.
+- Use `handoff_status: ready` only when the script can be generated without guessing.
+- Use `handoff_status: partial` when generation is possible but the final output must disclose unknowns.
+- Use `handoff_status: blocked` when identity or core use is not verified enough to write.
+- Leave `blocking_gaps` empty only when status is `ready`.
 
 ## Minimal Note
 

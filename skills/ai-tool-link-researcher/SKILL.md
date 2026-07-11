@@ -1,6 +1,6 @@
 ---
 name: ai-tool-link-researcher
-description: Research AI tool links, GitHub repos, product sites, docs, store listings, screenshots, pasted descriptions, or tool names before script writing. Use when verified facts, achievements, access paths, pricing/open-source/API-key risks, source confidence, or a TOOL_RESEARCH_HANDOFF_V1 block is needed for ai-tool-script-producer. Do not use for writing final口播稿.
+description: Research AI tool links, GitHub repos, product sites, docs, store listings, screenshots, pasted descriptions, or tool names before script writing. Use when the user asks for AI工具链接检索, 工具事实核验, 工具链接研究, verified facts, achievements, access paths, pricing/open-source/API-key risks, source confidence, or a TOOL_RESEARCH_HANDOFF_V1 block for ai-tool-script-producer. Do not use for writing final口播稿.
 ---
 
 # AI Tool Link Researcher
@@ -13,7 +13,7 @@ This Skill owns **research, source judgment, claim safety, and handoff structure
 
 It does not write the final口播稿, title, CTA, subtitle rhythm, or video packaging. Use `ai-tool-script-producer` for that.
 
-When the target is AI News Radar, 伯乐Skill, Scout Skill, or `LearnPrompt/ai-news-radar`, use `ai-news-radar` first for project-specific context, then convert the findings into this Skill's handoff format.
+When the target is AI News Radar, 伯乐Skill, Scout Skill, or `LearnPrompt/ai-news-radar`, use `ai-news-radar` first if installed. If it is unavailable, use deep GitHub repository research and record that fallback in `research_limits`.
 
 ## Runtime Order
 
@@ -42,6 +42,7 @@ Read `DESIGN_SPEC.md` only when modifying, auditing, or extending this Skill.
 - Do not expose secrets, cookies, private OPML, private inboxes, tokens, `.env` values, or private newsletter contents.
 - Do not turn a GitHub open-source repo into a "free hosted service" claim unless the hosted path is verified.
 - Do not write the final口播稿. Output facts and handoff only.
+- Always set `handoff_status` to `ready`, `partial`, or `blocked`.
 
 ## Validation
 

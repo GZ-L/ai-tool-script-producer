@@ -26,7 +26,7 @@ ls ~/.codex/skills/ai-tool-link-researcher/SKILL.md
 
 ## 推荐安装形态
 
-保持两个 Skill 独立安装：
+保持两个 Skill 独立安装。运行时以顶层 `ai-tool-link-researcher` 为权威检索 Skill，主 Skill 内的 `skills/ai-tool-link-researcher` 只作为发布包副本和离线安装来源。
 
 ```text
 ~/.codex/skills/
@@ -35,6 +35,12 @@ ls ~/.codex/skills/ai-tool-link-researcher/SKILL.md
 ```
 
 不要把 `ai-tool-link-researcher` 的内部文件合并到 `ai-tool-script-producer`，否则后续改检索逻辑和改文案逻辑会互相影响。
+
+如果更新了仓库内的 `skills/ai-tool-link-researcher`，必须同步安装到：
+
+```text
+~/.codex/skills/ai-tool-link-researcher
+```
 
 ## 更新
 

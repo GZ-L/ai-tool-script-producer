@@ -33,6 +33,14 @@ https://github.com/LearnPrompt/ai-news-radar
 -> 口播稿
 ```
 
+运行约束：
+
+- 没有 `TOOL_RESEARCH_HANDOFF_V1`，不得直接写最终口播稿。
+- `handoff_status: ready` 可以直接生成。
+- `handoff_status: partial` 可以生成，但必须在 `事实依据/待核验` 标记缺口。
+- `handoff_status: blocked` 不生成口播稿，先说明缺少哪些事实。
+- 默认不把完整 handoff 展示给用户，除非用户要求看检索结果或做 Agent 调试。
+
 ## 已有交接块时
 
 如果用户已经提供 `TOOL_RESEARCH_HANDOFF_V1`，主 Skill 会直接读取交接块，不再重复搜索。
@@ -63,6 +71,7 @@ END_TOOL_RESEARCH_HANDOFF_V1
 
 - 链接无法访问：检索 Skill 会在 `research_limits` 标记。
 - 动态数据无法确认：脚本中不使用该 claim，或写入 `待核验`。
+- `handoff_status: blocked`：说明无法生成口播稿，并列出 `blocking_gaps`。
 - 用户只给工具名：需要先搜索官方来源，不能直接凭记忆写。
 - 用户要求夸张表达：默认不写“全网爆火、一键搞定、永久免费”等无证据词。
 

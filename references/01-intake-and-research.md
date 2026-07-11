@@ -12,6 +12,7 @@ Map it like this:
 
 | Script Need | Handoff Field |
 |---|---|
+| Readiness | `handoff_status` |
 | Tool name | `identity.tool_name` |
 | Type | `identity.type` |
 | First sentence result | `script_material.first_sentence_core_result` or `verified_facts.one_core_result` |
@@ -22,8 +23,20 @@ Map it like this:
 | Elevated positioning | `script_material.elevated_positioning` |
 | Save audience | `script_material.save_audience` or `verified_facts.target_users` |
 | Risk notes | `claim_safety`, `verified_facts.status`, `research_limits` |
+| Blocking gaps | `blocking_gaps` |
+| Confidence | `confidence` |
 
 Use `claim_safety.do_not_claim` as a hard blocklist.
+
+## Handoff Readiness
+
+Use `handoff_status` before drafting:
+
+- `ready`: continue to script drafting.
+- `partial`: continue only if tool identity, one core result, achievement or fallback positioning, at least two capabilities, and one access path are usable. Mark missing facts in `事实依据/待核验`.
+- `blocked`: do not write the口播稿. Explain the blocking gaps and ask for a better source or more information.
+
+Do not override `handoff_status` based on writing intuition. If the handoff is internally inconsistent, treat it as `partial` or `blocked` and explain why.
 
 ## Fallback Research
 
@@ -78,3 +91,4 @@ Do not write vague fake proof such as "很多人都在用", "全网爆火", or "
 - Do not imply "免费" if the official source only says open source, trial, or self-hosted.
 - Do not say "无需 API Key" unless the exact workflow being described really does not require one.
 - Do not use any claim listed under `do_not_claim`.
+- Do not hide `blocking_gaps` when they affect the generated script.

@@ -16,6 +16,13 @@ python3 /Users/guozhi/.codex/skills/standard-skill-maker/scripts/validate_skill.
 python3 /Users/guozhi/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/ai-tool-link-researcher
 ```
 
+安装目录同步验证：
+
+```bash
+diff -qr /Users/guozhi/Documents/Codex/口播视频工作室/ai-tool-script-producer-skill /Users/guozhi/.codex/skills/ai-tool-script-producer -x .git
+diff -qr /Users/guozhi/.codex/skills/ai-tool-link-researcher /Users/guozhi/.codex/skills/ai-tool-script-producer/skills/ai-tool-link-researcher
+```
+
 上传文档验证：
 
 ```bash
@@ -47,3 +54,4 @@ PASSED: 0 error(s), 0 warning(s)
 - 结构验证确认 Skill frontmatter、命名、基础结构可用。
 - 上传文档验证确认 README 必要主题、NOTICE 建议和敏感信息扫描。
 - 这些验证不保证外部网页可访问，也不保证每个工具链接都能检索到完整公开事实。
+- `diff -qr` 无输出表示发布包、安装目录和内嵌检索副本当前一致。

@@ -27,9 +27,10 @@ Default to standard. Use deep when a wrong claim would make the final口播 misl
 
 ## Project-Specific Skill Routing
 
-Use a project-specific Skill before this generic researcher only when the target exactly matches that project.
+Use a project-specific Skill before this generic researcher only when the target exactly matches that project and the Skill is installed.
 
-- AI News Radar / 伯乐Skill / Scout Skill / `LearnPrompt/ai-news-radar`: use `ai-news-radar` first, then return this Skill's handoff block.
+- AI News Radar / 伯乐Skill / Scout Skill / `LearnPrompt/ai-news-radar`: use `ai-news-radar` first when available, then return this Skill's handoff block.
+- If `ai-news-radar` is unavailable, use deep GitHub repository research and mark the fallback in `research_limits`.
 
 Do not use `ai-news-radar` for unrelated AI tools. Its source-ingestion rules can distort ordinary tool research.
 

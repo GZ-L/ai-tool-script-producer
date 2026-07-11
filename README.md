@@ -9,6 +9,8 @@
 - `ai-tool-script-producer`：主 Skill，负责把已核验事实写成 30-45 秒中文口播稿。
 - `ai-tool-link-researcher`：配合 Skill，负责链接检索、事实核验、风险判断，并输出 `TOOL_RESEARCH_HANDOFF_V1`。
 
+面向 Agent 的稳定调用协议见 [docs/AGENT_CALLING_PROTOCOL.md](docs/AGENT_CALLING_PROTOCOL.md)。后续修改本 Skill 时，先读 [docs/SKILL_MAINTENANCE_PROTOCOL.md](docs/SKILL_MAINTENANCE_PROTOCOL.md)。
+
 ## 来源与归属
 
 - 维护账号：`GZ-L`
@@ -41,6 +43,7 @@
 
 - 先通过 `ai-tool-link-researcher` 对链接做来源分类、事实核验和 claim safety 判断。
 - 用 `TOOL_RESEARCH_HANDOFF_V1` 把事实交给 `ai-tool-script-producer`，避免边查边写导致事实和文案混乱。
+- 通过 `handoff_status`、`confidence`、`blocking_gaps` 判断是否能写稿，减少 Agent 主观判断。
 - 生成符合固定节奏的中文口播稿：一句话定位、痛点、工具名、战绩、三点能力、使用路径、升维定位、收藏人群。
 - 对动态事实保持克制：stars、forks、价格、API Key、登录、部署方式等必须核验或标记待核验。
 
@@ -48,6 +51,7 @@
 
 - 默认输出一版 30-45 秒口播稿。
 - 附带简短 `事实依据/待核验`，说明关键事实来源或不确定点。
+- 默认不展示完整 `TOOL_RESEARCH_HANDOFF_V1`，但必须先生成或接收可用 handoff。
 - 如果用户要求完整包，可输出标题、分段节奏、画面/字幕建议、下载和使用步骤。
 
 质量标准：
@@ -58,7 +62,7 @@
 
 ## 安装
 
-推荐把两个 Skill 分别安装到 Codex Skill 目录：
+推荐把两个 Skill 分别安装到 Codex Skill 目录。运行时以顶层 `~/.codex/skills/ai-tool-link-researcher` 为检索 Skill 权威来源，仓库内 `skills/ai-tool-link-researcher` 是发布和离线安装副本。
 
 ```bash
 git clone https://github.com/GZ-L/ai-tool-script-producer.git
@@ -145,7 +149,9 @@ https://github.com/LearnPrompt/ai-news-radar
 ├── docs/
 │   ├── INSTALL.md
 │   ├── USAGE.md
-│   └── VALIDATION.md
+│   ├── VALIDATION.md
+│   ├── AGENT_CALLING_PROTOCOL.md
+│   └── SKILL_MAINTENANCE_PROTOCOL.md
 ├── references/
 │   ├── 01-intake-and-research.md
 │   ├── 02-script-structure.md
@@ -177,6 +183,7 @@ https://github.com/LearnPrompt/ai-news-radar
 
 - 本 Skill 不保证外部网页永远可访问。
 - 动态事实需要当前回合核验，尤其是 stars、forks、价格、API Key、登录、部署方式。
+- 没有 `TOOL_RESEARCH_HANDOFF_V1` 时，不应直接生成最终口播稿；除非检索 Skill 不可用并明确标记 fallback 限制。
 - GitHub 开源不等于免费托管服务，脚本中不能自动写成“免费”。
 - 如果目标正好是 AI News Radar / 伯乐Skill / Scout Skill，可先调用对应项目 Skill 做项目级理解。
 - 最终口播稿仍建议人工 review，尤其是商业化、价格、授权、下载路径和平台合规表达。

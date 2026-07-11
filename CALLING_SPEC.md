@@ -7,12 +7,14 @@ Mandatory runtime contract for `ai-tool-script-producer`. Follow this before wri
 For ordinary script generation:
 
 1. `CALLING_SPEC.md`
-2. `ai-tool-link-researcher` for upstream link/tool research when no handoff is supplied
-3. `references/01-intake-and-research.md`
-4. `references/02-script-structure.md`
-5. `references/03-output-and-quality.md`
+2. `docs/AGENT_CALLING_PROTOCOL.md`
+3. `ai-tool-link-researcher` for upstream link/tool research when no handoff is supplied
+4. `references/01-intake-and-research.md`
+5. `references/02-script-structure.md`
+6. `references/03-output-and-quality.md`
 
 `DESIGN_SPEC.md` is maintenance-only. Do not read it during normal generation.
+`docs/SKILL_MAINTENANCE_PROTOCOL.md` is maintenance-only. Do not read it during normal generation.
 
 Research authority and writing authority are separate:
 
@@ -26,13 +28,16 @@ Research authority and writing authority are separate:
 
 2. **Resolve research input**
    - If the user already supplied `TOOL_RESEARCH_HANDOFF_V1`, use it as the evidence source.
-   - If the user supplied a URL/tool name and no handoff, use `ai-tool-link-researcher` first.
-   - If `ai-tool-link-researcher` is unavailable, use `references/01-intake-and-research.md` as a fallback research checklist and mark limits.
+   - If the user supplied a URL/tool name and no handoff, use `ai-tool-link-researcher` first and obtain a completed `TOOL_RESEARCH_HANDOFF_V1`.
+   - Runtime Skill resolution order: installed `~/.codex/skills/ai-tool-link-researcher`, then packaged `skills/ai-tool-link-researcher`, then fallback checklist.
+   - If `ai-tool-link-researcher` is unavailable, use `references/01-intake-and-research.md` as a fallback research checklist and mark limits in `事实依据/待核验`.
    - Do not read `ai-tool-link-researcher` internals while drafting if a valid handoff is already present.
+   - No completed handoff means no final script, except the explicit fallback path above.
 
 3. **Prepare script material**
    - Read `references/01-intake-and-research.md`.
    - Extract from the handoff or fallback notes: tool name, purpose, audience, pain point, achievement, access path, first-use steps, free/open-source status if verified, and risk notes.
+   - Check `handoff_status`; continue only when it is `ready` or when `partial` still has enough verified facts and the missing fields are marked.
    - Do not draft the final口播稿 before this pass.
 
 4. **Select achievement sentence**
@@ -74,4 +79,5 @@ Before final delivery:
 - Achievement sentence directly follows the tool name.
 - Dynamic facts are verified or marked uncertain.
 - Claims marked `do_not_claim` in the handoff are not used.
+- `handoff_status` is `ready`, or the output clearly marks fallback/partial research limits.
 - The script explains what the tool solves, who it helps, how to access it, and how to start using it.

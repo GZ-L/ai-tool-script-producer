@@ -2,6 +2,8 @@
 
 Maintenance-only notes for `ai-tool-script-producer`. Do not read this file during ordinary script generation.
 
+For future modifications, read `docs/SKILL_MAINTENANCE_PROTOCOL.md` first. For Agent runtime cooperation, read `docs/AGENT_CALLING_PROTOCOL.md`.
+
 ## Purpose
 
 This Skill turns a researched tool name or link into a Chinese short-form口播稿. Its fixed sample rhythm is:
@@ -26,6 +28,8 @@ The researcher owns facts and claim safety. This Skill owns spoken structure and
 
 - `SKILL.md`: trigger, routing, and minimal workflow.
 - `CALLING_SPEC.md`: top runtime contract.
+- `docs/AGENT_CALLING_PROTOCOL.md`: Agent-facing runtime routing and Skill cooperation.
+- `docs/SKILL_MAINTENANCE_PROTOCOL.md`: future modification protocol and compatibility contract.
 - `skills/ai-tool-link-researcher/`: packaged upstream research Skill. Install it as a separate Skill for normal use.
 - `references/01-intake-and-research.md`: handoff mapping and fallback research only.
 - `references/02-script-structure.md`: drafting structure.
@@ -50,6 +54,7 @@ The researcher owns facts and claim safety. This Skill owns spoken structure and
 
 - `CALLING_SPEC.md` remains the top runtime authority.
 - Research handoff or fallback `01` runs before drafting.
+- No completed handoff means no final script, unless fallback research is explicitly marked.
 - `02` starts with one core result, not a bloated first sentence.
 - The achievement sentence still appears immediately after the tool name.
 - Compact output remains default for script-only requests.

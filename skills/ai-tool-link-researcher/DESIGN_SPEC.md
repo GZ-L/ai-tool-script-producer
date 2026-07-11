@@ -21,6 +21,8 @@ It is modeled after the useful parts of `ai-news-radar`'s ability tree:
 
 It does not inherit `ai-news-radar`'s project-specific source-ingestion workflow.
 
+For package-level modification rules, read `../../docs/SKILL_MAINTENANCE_PROTOCOL.md` from the repository root when available.
+
 ## Runtime Files
 
 - `SKILL.md`: trigger, routing, and boundary.
@@ -60,6 +62,7 @@ If the handoff shape changes, update:
 - Every dynamic claim is verified, downgraded, or omitted.
 - Secret, private feed, and account-bound source rules remain strict.
 - `TOOL_RESEARCH_HANDOFF_V1` remains stable enough for `ai-tool-script-producer`.
+- Handoff blocks include `handoff_status`, `confidence`, and `blocking_gaps` so downstream Agents do not guess readiness.
 
 ## Validation
 

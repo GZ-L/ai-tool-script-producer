@@ -21,8 +21,9 @@ For research tasks:
    - Do not use it to draft final口播稿.
 
 2. **Detect project-specific Skill**
-   - If the target is AI News Radar, 伯乐Skill, Scout Skill, or `LearnPrompt/ai-news-radar`, use `ai-news-radar` first for project-specific source, workflow, and product context.
-   - Convert those findings into `TOOL_RESEARCH_HANDOFF_V1`.
+   - If the target is AI News Radar, 伯乐Skill, Scout Skill, or `LearnPrompt/ai-news-radar`, use installed `ai-news-radar` first for project-specific source, workflow, and product context.
+   - If `ai-news-radar` is unavailable, use deep GitHub repository research and mark `ai-news-radar unavailable` in `research_limits`.
+   - Convert the findings into `TOOL_RESEARCH_HANDOFF_V1`.
    - Do not copy `ai-news-radar`'s source-ingestion workflow into this Skill.
 
 3. **Classify source**
@@ -43,6 +44,9 @@ For research tasks:
 6. **Output handoff**
    - Read `references/03-handoff-contract.md`.
    - Return exactly one `TOOL_RESEARCH_HANDOFF_V1` block plus a short note only when needed.
+   - Set `handoff_status: ready` only when identity, achievement or fallback positioning, core capabilities, access path, and claim safety are sufficient for script generation.
+   - Set `handoff_status: partial` when a script can be written but important unknowns must be disclosed.
+   - Set `handoff_status: blocked` when the tool identity or core use cannot be verified.
 
 ## Tool Use
 
@@ -56,6 +60,7 @@ For research tasks:
 Before returning:
 
 - Source type and research depth are clear.
+- `handoff_status` matches the evidence.
 - Every achievement sentence has evidence or is marked as fallback.
 - Access/download/use path is verified or marked unknown.
 - Risk notes include API key, login, paid limits, local deployment, and platform limits when relevant.

@@ -20,6 +20,8 @@ For a full package request, return:
 
 Keep the final answer practical. Do not bury the actual口播稿 under long analysis.
 
+For script-only requests, do not show `TOOL_RESEARCH_HANDOFF_V1` by default. The script still must be derived from a completed handoff. Show the handoff only when the user asks for research details, debugging, or Agent integration output.
+
 ## Quality Gate
 
 Check before final delivery:
@@ -31,6 +33,7 @@ Check before final delivery:
 - The script answers: what it solves, who it is for, what result it creates, how to access/download, and how to start using it.
 - Dynamic facts are current or marked as needing verification.
 - Claims are not stronger than the evidence.
+- A completed `TOOL_RESEARCH_HANDOFF_V1` exists, or fallback research limits are explicitly marked.
 - The script has one clear CTA.
 
 ## Style Controls
